@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 def words_freq(url):
-    import urllib
     import random
     import mechanize
     from bs4 import BeautifulSoup
