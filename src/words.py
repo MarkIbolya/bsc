@@ -24,8 +24,6 @@ def words_freq(url):
     word_dict = {}
     word_list = []
     
-    i = 0
-    
     for link in soup.findAll(text=True):
         try:
             word_list += link.lower().split()

