@@ -4,13 +4,14 @@ def words_freq(url):
     import random
     import mechanize
     from bs4 import BeautifulSoup
+    
     USER_AGENTS = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:11.0) Gecko/20100101 Firefox/11.0',
                'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:22.0) Gecko/20100 101 Firefox/22.0',
                'Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0',
                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.46 Safari/536.5',
                'Mozilla/5.0 (Windows; Windows NT 6.1) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.46 Safari/536.5')
     
-    common = open("text-files/common_words_en.txt").read().split("\n")
+    common = open("../src/text-files/common_words_hu.txt").read().split("\n")
         
     br = mechanize.Browser()
     br.set_handle_robots(False)
@@ -26,7 +27,7 @@ def words_freq(url):
     
     for link in soup.findAll(text=True):
         try:
-            word_list += link.lower().split()
+            word_list += link.lower().split() # szétvalasztjuk szavakra a szöveget
         except:
             pass
     
@@ -43,7 +44,18 @@ def words_freq(url):
         yield words
 
 if __name__ == '__main__':
-    import sys          
-    url = raw_input('Url: ').split()
-    for i in words_freq(url[0]):
-        print i[0].encode('utf-8')+str(i[1])
+    import sys
+    url = sys.argv[1]
+    
+    from misc import check_if_exists
+    if check_if_exists(url):
+        for i in words_freq(url):
+            print i[0].encode('utf-8'), str(i[1])
+    else:
+        print "Hiba az oldal betöltésénél!"
+
+
+
+
+
+
